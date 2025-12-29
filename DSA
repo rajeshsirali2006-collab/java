@@ -1,0 +1,67 @@
+import java.util.Scanner;
+
+class Day {
+    private String name;
+    private int date;
+    private String activity;
+    public Day() {
+        this.name = "";
+        this.date = 0;
+        this.activity = "";
+    }
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public int getDate() {
+        return date;
+    }
+    public void setDate(int date) {
+        this.date = date;
+    }
+    public String getActivity() {
+        return activity;
+    }
+    public void setActivity(String activity) {
+        this.activity = activity;
+    }
+}
+public class CalendarApp {
+    private static final int MAX_DAYS = 7;
+    private static Scanner scanner = new Scanner(System.in);   
+    public static Day[] create() {
+        return new Day[MAX_DAYS]; // Java automatically initializes to null
+    }
+    public static void read(Day[] calendar) {
+        for (int i = 0; i < MAX_DAYS; i++) {
+            calendar[i] = new Day(); // Initialize each Day object       
+            System.out.print("Enter the name of day " + (i + 1) + ": ");
+            calendar[i].setName(scanner.nextLine());
+            System.out.print("Enter the date of " + calendar[i].getName() + ": ");
+            while (!scanner.hasNextInt()) {
+                System.out.println("Please enter a valid integer for date:");
+                scanner.next(); // Clear invalid input
+            }
+            calendar[i].setDate(scanner.nextInt());
+            scanner.nextLine(); // Consume newline
+            System.out.print("Enter the activity for " + calendar[i].getName() + ": ");
+            calendar[i].setActivity(scanner.nextLine());
+        }
+    }
+    public static void display(Day[] calendar) {
+        System.out.println("\nDay\tDate\tActivity");
+        System.out.println("------------------------");
+        for (int i = 0; i < MAX_DAYS; i++) {
+            System.out.println(calendar[i].getName() + "\t" + 
+                             calendar[i].getDate() + "\t" + 
+                             calendar[i].getActivity());
+        }
+    }
+    public static void main(String[] args) {
+        Day[] calendar = create();
+        read(calendar);
+        display(calendar);   
+    }
+}
